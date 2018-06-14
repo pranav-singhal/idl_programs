@@ -12,7 +12,6 @@ array= array[38:*]
 row = strsplit(array[0],' ',/extract)
 row = double(row)
 data_array = [row]
-print,'size of data_array columb' ,size(data_array[1:*])
 for i=1,7322 do begin
 row = double(strsplit(array[i],/extract))
 data_array = [[data_array],[row]]
@@ -54,8 +53,17 @@ while(monthly_flag le 7322/30) do begin
 	monthly_arr=[[monthly_arr],[monthly_flag,mean1,mean2,mean3,mean4]]
 	monthly_std_dev_arr = [[monthly_std_dev_arr],[monthly_flag, std_dev1,std_dev2,std_dev3,std_dev4]]
 	monthly_flag = monthly_flag + 1
-	print, std_temp_arr1
 endwhile
+window, 0
+plot, monthly_arr[0,1:*], monthly_arr[1,1:*], xtitle = 'month', ytitle ='average tsi data collected by VIRGO on the new scale'
+;window,1 
+;plot, monthly_arr[0,1:*], monthly_arr[2,1:*], xtitle = 'month', ytitle ='average tsi data collected by VIRGO on the old scale'
+;window, 2
+;plot, monthly_arr[0,1:*], monthly_arr[3,1:*], xtitle = 'month', ytitle ='average tsi data collected by DIARD on the original scale'
+;window, 3
+;plot, monthly_arr[0,1:*], monthly_arr[4,1:*], xtitle = 'month', ytitle ='average tsi data collected by VIRGO on the original scale'
+window, 1
+plot, size(data_array[0,1:*],/n_elements), data_array[1,1:*]
 ;uncomment code below to write the avg monthly data to a file
 ;fname = 'monthly_avg_tsi.txt'
 ;openw, 1, fname
